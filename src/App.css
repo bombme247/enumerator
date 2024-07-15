@@ -1,52 +1,57 @@
 .App {
   text-align: center;
-  background-color: rgb(73, 97, 117);
+  background-color: rgb(53, 67, 78);
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 40px;
 }
 
 .container {
   width: 400px;
   height: 300px;
-  border: 4px solid rgb(113, 206, 216);
+  border: 3px solid rgb(135, 189, 216);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-
+  color:  rgb(53, 67, 78);
 }
 
 .counter {
   width: 90%;
   height: 50%;
-  background-color: rgb(113, 206, 216);
+  border: 3px solid rgb(135, 189, 216);
   border-radius: 10px;
   font-size: 70px;
   font-weight: bold;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  color:  rgb(135, 189, 216);
+  gap: 30px;
+  font-size: 25px;
 }
 
 .max-count {
   width: 90%;
   height: 50%;
-  background-color: rgb(113, 206, 216);
   border-radius: 10px;
+  border: 3px solid rgb(135, 189, 216);
   font-size: 70px;
   font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgb(217, 66, 66);
+  color: rgb(185, 61, 54);
 }
 
 .btn-wrapper {
   height: 35%;
-  border: 4px solid rgb(113, 206, 216); 
+  border: 3px solid  rgb(135, 189, 216); 
   border-radius: 10px;
   width: 90%;
   gap: 30px;
@@ -56,11 +61,38 @@
 }
 
 button {
-  padding: 20px;
-  background-color: rgb(113, 206, 216);
+  padding: 10px 20px;
+  background-color:  rgb(135, 189, 216);
   border: none;
   border-radius: 10px;
   font-weight: bold;
   font-size: 30px;
+  color:  rgb(53, 67, 78);
+  cursor: pointer;
 }
 
+button:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.inputWrapper {
+  width: 85%;
+  display: flex;
+  justify-content: space-between;
+}
+
+label {
+  font-size: 25px;
+}
+
+input {
+  border: 3px solid  rgb(135, 189, 216); 
+  border-radius: 3px;
+}
+
+.error {
+  border: 3px solid  rgb(185, 61, 54);
+  border-radius: 3px;
+  background-color: rgba(231, 139, 150, 0.794);
+}
