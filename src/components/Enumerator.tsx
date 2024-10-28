@@ -5,12 +5,14 @@ type EnumeratorPropsType = {
   minValue: number
   maxValue: number
   isIncorrectValue: boolean
+  isStorageEmpty: boolean
   valuesSet: boolean
 }
 
-export const Enumerator = ({minValue, maxValue, isIncorrectValue, valuesSet}: EnumeratorPropsType) => {
+export const Enumerator = ({minValue, maxValue, isIncorrectValue, isStorageEmpty, valuesSet}: EnumeratorPropsType) => {
 
-  let [count, setCount] = useState<number>(minValue)
+  const initialCount = isStorageEmpty ? minValue : Number(localStorage.getItem('storedMinValue') || minValue);
+  let [count, setCount] = useState<number>(initialCount)
 
   useEffect(() => {
     setCount(minValue);
@@ -30,7 +32,13 @@ export const Enumerator = ({minValue, maxValue, isIncorrectValue, valuesSet}: En
   return (
     <div className="container">
         <div className={isMaxCount ? 'max-count' : 'counter'}>
-          {isIncorrectValue ? 'incorrect value' : (!valuesSet ? 'enter values and press `set`' : count)}
+          {isStorageEmpty 
+          ? 'Enter values and press `set`'
+          : isIncorrectValue 
+          ? 'Incorrect value'
+          : !valuesSet
+          ? 'Enter values and press `set`'
+          : count}
         </div>
         <div className='btn-wrapper'>
           <Button title={'increase'} onClickHandler={increaseCount} disabled={isMaxCount || isIncorrectValue || !valuesSet}/>

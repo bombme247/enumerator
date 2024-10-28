@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react"
+import { ChangeEvent, useCallback, useEffect, useState } from "react"
 import { Button } from "./Button"
 import { Input } from "./Input"
 
@@ -15,30 +15,34 @@ export const SettingWindow = ({onSetValues, setIsIncorrectValue}: SettingWindowP
   useEffect(() => {
     const storedMinValue = Number(localStorage.getItem('storedMinValue'));
     const storedMaxValue = Number(localStorage.getItem('storedMaxValue'));
-    setMinValue(storedMinValue);
-    setMaxValue(storedMaxValue);
+    if (storedMinValue && storedMaxValue) {
+      setMinValue(storedMinValue);
+      setMaxValue(storedMaxValue);
+    }
+
   }, [])
 
-  const minChangeHandler = (event: ChangeEvent<HTMLInputElement> ) => {
+  const checkError = useCallback( (min: number, max: number) => {
+    setIsIncorrectValue(min < 0 || max < 0 || min === max ||min > max);
+  }, [setIsIncorrectValue] );
+
+
+  const minChangeHandler = useCallback( (event: ChangeEvent<HTMLInputElement> ) => {
     const newMinValue = Number(event.currentTarget.value)
     setMinValue(newMinValue)
     checkError(newMinValue, maxValue)
-  }
+  }, [checkError, maxValue] );
 
-  const maxChangeHandler = (event: ChangeEvent<HTMLInputElement> ) => {
+  const maxChangeHandler = useCallback( (event: ChangeEvent<HTMLInputElement> ) => {
     const newMaxValue = Number(event.currentTarget.value)
     setMaxValue(newMaxValue)
     checkError(minValue, newMaxValue)
-  }
+  }, [checkError, minValue] );
 
-  const settingSaveHandler = () => {
+  const settingSaveHandler = useCallback( () => {
     onSetValues(minValue, maxValue)
-  }
-
-  const checkError = (min: number, max: number) => {
-    setIsIncorrectValue(min < 0 || max < 0 || min === max ||min > max);
-  }
-
+  }, [onSetValues, minValue, maxValue] );
+ 
   const isIncorrectValue = minValue < 0 || maxValue < 0 || minValue === maxValue ||minValue > maxValue
 
   return (

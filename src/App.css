@@ -83,16 +83,22 @@ button:disabled {
 }
 
 label {
-  font-size: 25px;
+  font-size: 1em;
+  max-height: 30px;
 }
 
 input {
   border: 3px solid  rgb(135, 189, 216); 
   border-radius: 3px;
+  max-width: 150px;
 }
 
 .error {
   border: 3px solid  rgb(185, 61, 54);
   border-radius: 3px;
   background-color: rgba(231, 139, 150, 0.794);
+}
+
+.max-count {
+  font-size: 2em;
 }
