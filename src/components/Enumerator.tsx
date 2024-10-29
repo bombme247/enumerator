@@ -18,13 +18,9 @@ export const Enumerator = ({minValue, maxValue, isIncorrectValue, isStorageEmpty
     setCount(minValue);
   }, [minValue])
 
-  const resetCount = () => {
-    setCount(minValue)
-  }
+  const resetCount = () => setCount(minValue)
 
-  const increaseCount = () => {
-   setCount(count +1)
-  }
+  const increaseCount = () => setCount(count +1) 
   
   const isMaxCount = count === maxValue
   const isMinCount = count === minValue

@@ -5,36 +5,29 @@ import { SettingWindow } from './components/SettingWindow';
 
 function App() {
 
-  const [minValue, setMinValue] = useState( () => {
+  const [minValue, setMinValue] = useState<number | null>(() => {
     const storedMin = localStorage.getItem('storedMinValue');
-    return storedMin !== null ? Number(storedMin) : 0;
-  } )
+    return storedMin ? Number(storedMin) : null;
+  });
 
-  const [maxValue, setMaxValue] = useState( () => {
+  const [maxValue, setMaxValue] = useState<number | null>(() => {
     const storedMax = localStorage.getItem('storedMaxValue');
-    return storedMax !== null ? Number(storedMax) : 0;
-  } )
+    return storedMax ? Number(storedMax) : null;
+  });
 
-  const [isIncorrectValue, setIsIncorrectValue] = useState<boolean>(false)
+  const [isIncorrectValue, setIsIncorrectValue] = useState<boolean>(false);
   const [valuesSet, setValuesSet] = useState<boolean>(false);
-  const [isStorageEmpty, setIsStorageEmpty] = useState<boolean>(true)
+  const [isStorageEmpty, setIsStorageEmpty] = useState<boolean>(true);
 
-  useEffect( () => {
+  useEffect(() => {
 
-    const storedMinValue = Number(localStorage.getItem('storedMinValue'));
-    const storedMaxValue = Number(localStorage.getItem('storedMaxValue'));
+    const isEmpty = minValue === null || maxValue === null;
+    const isIncorrect = minValue === null || maxValue === null || minValue < 0 || maxValue < 0 || minValue >= maxValue;
 
-    if ((storedMinValue !== 0) && (storedMaxValue !== 0)) {
-      setMinValue(storedMinValue);
-      setMaxValue(storedMaxValue);
-      setValuesSet(true);
-      setIsStorageEmpty(false); //false если значения найдены
-    } else {
-      setIsStorageEmpty(true); //true если значения отсутствуют
-    }
+    setIsStorageEmpty(isEmpty);
+    setIsIncorrectValue(isIncorrect)
 
-  }, [] );
-  
+  }, [minValue, maxValue]);
 
   const handleSetValues = (min: number, max: number) => {
     setMinValue(min);
@@ -50,7 +43,7 @@ function App() {
   return (
     <div className="App">
       <SettingWindow onSetValues={handleSetValues} setIsIncorrectValue={setIsIncorrectValue} />
-      <Enumerator minValue={minValue} maxValue={maxValue} isIncorrectValue={isIncorrectValue} isStorageEmpty={isStorageEmpty} valuesSet={valuesSet}/>
+      <Enumerator minValue={minValue || 0} maxValue={maxValue || 0} isIncorrectValue={isIncorrectValue} isStorageEmpty={isStorageEmpty} valuesSet={valuesSet} />
     </div>
   );
 }

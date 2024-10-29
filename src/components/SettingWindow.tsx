@@ -15,7 +15,7 @@ export const SettingWindow = ({onSetValues, setIsIncorrectValue}: SettingWindowP
   useEffect(() => {
     const storedMinValue = Number(localStorage.getItem('storedMinValue'));
     const storedMaxValue = Number(localStorage.getItem('storedMaxValue'));
-    if (storedMinValue && storedMaxValue) {
+      if (!isNaN(storedMinValue) && !isNaN(storedMaxValue)) {
       setMinValue(storedMinValue);
       setMaxValue(storedMaxValue);
     }
@@ -23,9 +23,8 @@ export const SettingWindow = ({onSetValues, setIsIncorrectValue}: SettingWindowP
   }, [])
 
   const checkError = useCallback( (min: number, max: number) => {
-    setIsIncorrectValue(min < 0 || max < 0 || min === max ||min > max);
+    setIsIncorrectValue(min < 0 || max < 0 || min >= max);
   }, [setIsIncorrectValue] );
-
 
   const minChangeHandler = useCallback( (event: ChangeEvent<HTMLInputElement> ) => {
     const newMinValue = Number(event.currentTarget.value)
@@ -43,7 +42,7 @@ export const SettingWindow = ({onSetValues, setIsIncorrectValue}: SettingWindowP
     onSetValues(minValue, maxValue)
   }, [onSetValues, minValue, maxValue] );
  
-  const isIncorrectValue = minValue < 0 || maxValue < 0 || minValue === maxValue ||minValue > maxValue
+  const isIncorrectValue = minValue < 0 || maxValue < 0 || minValue >= maxValue 
 
   return (
     <div className="container">
