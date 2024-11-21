@@ -25,16 +25,20 @@ export const Enumerator = ({minValue, maxValue, isIncorrectValue, isStorageEmpty
   const isMaxCount = count === maxValue
   const isMinCount = count === minValue
 
+
+  const displayMessage =  isStorageEmpty 
+  ? 'Enter values and press `set`'
+  : isIncorrectValue 
+  ? 'Incorrect value'
+  : !valuesSet
+  ? 'Enter values and press `set`'
+  : count
+
+
   return (
     <div className="container">
         <div className={isMaxCount ? 'max-count' : 'counter'}>
-          {isStorageEmpty 
-          ? 'Enter values and press `set`'
-          : isIncorrectValue 
-          ? 'Incorrect value'
-          : !valuesSet
-          ? 'Enter values and press `set`'
-          : count}
+          {displayMessage}
         </div>
         <div className='btn-wrapper'>
           <Button title={'increase'} onClickHandler={increaseCount} disabled={isMaxCount || isIncorrectValue || !valuesSet}/>

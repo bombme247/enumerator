@@ -5,14 +5,14 @@ import { SettingWindow } from './components/SettingWindow';
 
 function App() {
 
-  const [minValue, setMinValue] = useState<number | null>(() => {
+  const [minValue, setMinValue] = useState<number >(() => {
     const storedMin = localStorage.getItem('storedMinValue');
-    return storedMin ? Number(storedMin) : null;
+    return  Number(storedMin) 
   });
 
-  const [maxValue, setMaxValue] = useState<number | null>(() => {
+  const [maxValue, setMaxValue] = useState<number >(() => {
     const storedMax = localStorage.getItem('storedMaxValue');
-    return storedMax ? Number(storedMax) : null;
+    return  Number(storedMax) 
   });
 
   const [isIncorrectValue, setIsIncorrectValue] = useState<boolean>(false);
@@ -22,9 +22,9 @@ function App() {
   useEffect(() => {
 
     const isEmpty = minValue === null || maxValue === null;
-    const isIncorrect = minValue === null || maxValue === null || minValue < 0 || maxValue < 0 || minValue >= maxValue;
+    const isIncorrect = minValue < 0 || maxValue < 0 || minValue >= maxValue;
 
-    setIsStorageEmpty(isEmpty);
+    setIsStorageEmpty(isEmpty)
     setIsIncorrectValue(isIncorrect)
 
   }, [minValue, maxValue]);
