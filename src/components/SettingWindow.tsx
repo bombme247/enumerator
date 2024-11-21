@@ -27,13 +27,14 @@ export const SettingWindow = ({onSetValues, setIsIncorrectValue}: SettingWindowP
   }, [setIsIncorrectValue] );
 
   const minChangeHandler = useCallback( (event: ChangeEvent<HTMLInputElement> ) => {
-    const newMinValue = Number(event.currentTarget.value)
+    const newMinValue = Number(event.currentTarget.value.trim())
     setMinValue(newMinValue)
     checkError(newMinValue, maxValue)
+    console.log(newMinValue)
   }, [checkError, maxValue] );
 
   const maxChangeHandler = useCallback( (event: ChangeEvent<HTMLInputElement> ) => {
-    const newMaxValue = Number(event.currentTarget.value)
+    const newMaxValue = Number(event.currentTarget.value.trim())
     setMaxValue(newMaxValue)
     checkError(minValue, newMaxValue)
   }, [checkError, minValue] );

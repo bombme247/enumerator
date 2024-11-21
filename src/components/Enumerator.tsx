@@ -11,7 +11,10 @@ type EnumeratorPropsType = {
 
 export const Enumerator = ({minValue, maxValue, isIncorrectValue, isStorageEmpty, valuesSet}: EnumeratorPropsType) => {
 
-  const initialCount = isStorageEmpty ? minValue : Number(localStorage.getItem('storedMinValue') || minValue);
+  const initialCount = isStorageEmpty 
+  ? minValue 
+  : Number(localStorage.getItem('storedMinValue') || minValue);
+
   let [count, setCount] = useState<number>(initialCount)
 
   useEffect(() => {
@@ -37,7 +40,7 @@ export const Enumerator = ({minValue, maxValue, isIncorrectValue, isStorageEmpty
 
   return (
     <div className="container">
-        <div className={isMaxCount ? 'max-count' : 'counter'}>
+        <div className={isStorageEmpty || !valuesSet || !isMaxCount ? 'counter' : 'max-count' }>
           {displayMessage}
         </div>
         <div className='btn-wrapper'>

@@ -21,7 +21,7 @@ function App() {
 
   useEffect(() => {
 
-    const isEmpty = minValue === null || maxValue === null;
+    const isEmpty = minValue === 0 || maxValue === 0;
     const isIncorrect = minValue < 0 || maxValue < 0 || minValue >= maxValue;
 
     setIsStorageEmpty(isEmpty)
@@ -30,7 +30,7 @@ function App() {
   }, [minValue, maxValue]);
 
   const handleSetValues = (min: number, max: number) => {
-    setMinValue(min);
+    setMinValue(min)
     setMaxValue(max)
 
     localStorage.setItem('storedMinValue', min.toString());
