@@ -88,16 +88,21 @@ export const Enumerator = ({ minValue, maxValue, isIncorrectValue, isStorageEmpt
   const isMaxCount = count === Number(maxValue);
   const isMinCount = count === (Number(minValue) || 0);
 
-  const displayMessage =
-    isStorageEmpty && isIncorrectValue
-      ? "Incorrect value"
-      : isStorageEmpty
-      ? "Enter values and press `set`"
-      : isIncorrectValue
-      ? "Incorrect value"
-      : !valuesSet
-      ? "Enter values and press `set`"
-      : count;
+  // const displayMessage =
+  //   isStorageEmpty && isIncorrectValue
+  //     ? "Incorrect value"
+  //     : isStorageEmpty
+  //     ? "Enter values and press `set`"
+  //     : isIncorrectValue
+  //     ? "Incorrect value"
+  //     : !valuesSet
+  //     ? "Enter values and press `set`"
+  //     : count;
+  const displayMessage = (() => {
+    if (isIncorrectValue) return "Incorrect value";
+    if (!valuesSet) return "Enter values and press `set`";
+    return count;
+  })();
 
   return (
     <div className="container">

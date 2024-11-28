@@ -59,12 +59,12 @@ import { SettingWindow } from './components/SettingWindow';
 
 function App() {
   const [minValue, setMinValue] = useState<string>(() => {
-    const storedMin = localStorage.getItem('storedMinValue') || '';
+    const storedMin = localStorage.getItem('storedMinValue') || '0';
     return storedMin;
   });
 
   const [maxValue, setMaxValue] = useState<string>(() => {
-    const storedMax = localStorage.getItem('storedMaxValue') || '';
+    const storedMax = localStorage.getItem('storedMaxValue') || '0';
     return storedMax;
   });
 

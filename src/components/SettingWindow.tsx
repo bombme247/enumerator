@@ -68,8 +68,8 @@ type SettingWindowPropsType = {
 };
 
 export const SettingWindow = ({ onSetValues, setIsIncorrectValue }: SettingWindowPropsType) => {
-  const [minValue, setMinValue] = useState<string>('0'); // пустая строка по умолчанию
-  const [maxValue, setMaxValue] = useState<string>('0'); // пустая строка по умолчанию
+  const [minValue, setMinValue] = useState<string>('0');
+  const [maxValue, setMaxValue] = useState<string>('0');
 
   useEffect(() => {
     const storedMinValue = localStorage.getItem('storedMinValue') || '0';
@@ -99,8 +99,7 @@ export const SettingWindow = ({ onSetValues, setIsIncorrectValue }: SettingWindo
       return checkError('', maxValue);
     }
 
-    // Удаление ведущих нулей
-    newMinValue = newMinValue.replace(/^0+|0+$/g, '');
+    newMinValue = newMinValue.replace(/^0+(?=\d)/, ''); // Удаляет ведущие нули
     setMinValue(newMinValue);
     checkError(newMinValue, maxValue);
   }, [checkError, maxValue]);
@@ -113,7 +112,7 @@ export const SettingWindow = ({ onSetValues, setIsIncorrectValue }: SettingWindo
       return checkError(minValue, '');
     }
 
-    newMaxValue = newMaxValue.replace(/^0+|0+$/g, '');
+    newMaxValue = newMaxValue.replace(/^0+(?=\d)/, ''); // Удаляет ведущие нули
     setMaxValue(newMaxValue);
     checkError(minValue, newMaxValue);
   }, [checkError, minValue]);
@@ -125,9 +124,9 @@ export const SettingWindow = ({ onSetValues, setIsIncorrectValue }: SettingWindo
   const isIncorrectValue = Number(minValue) < 0 || Number(maxValue) < 0 || Number(minValue) >= Number(maxValue) || !Number.isInteger(Number(minValue)) || 
   !Number.isInteger(Number(maxValue));
 
-  // Функция для получения значений из состояния
+  // получение значений из состояния
   const getValueOrZero = (value: string) => {
-    return value === '' ? '0' : value; // Для пустого поля оставляем пустую строку
+    return value === '' ? '' : value; 
   }
 
   return (
