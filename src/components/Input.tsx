@@ -3,7 +3,7 @@ import { ChangeEvent } from "react"
 type InputType = {
 id: string
 type: string
-value: number
+value: number | string
 label: string
 onChange: (event: ChangeEvent<HTMLInputElement>) => void
 className: string
