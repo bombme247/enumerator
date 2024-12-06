@@ -2,29 +2,24 @@ import { useState } from "react";
 import { Button } from "./Button";
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
+import { useDispatch } from "react-redux";
+import { increaseCount, resetCount } from "../store/slices/valuesSlice";
 
-type EnumeratorPropsType = {
-  minValue: string;
-  maxValue: string;
-  isIncorrectValue: boolean;
-  isStorageEmpty: boolean;
-  valuesSet: boolean;
-};
+// type EnumeratorPropsType = {
+//   minValue: string;
+//   maxValue: string;
+//   isIncorrectValue: boolean;
+//   isStorageEmpty: boolean;
+//   valuesSet: boolean;
+// };
 
 export const Enumerator = () => {
+  const dispatch = useDispatch()
 
-  const { minValue, maxValue, isIncorrectValue, valuesSet } = useSelector((state: RootState) => state.values);
+  const { minValue, maxValue, isIncorrectValue, valuesSet, count } = useSelector((state: RootState) => state.values);
 
-  const [count, setCount] = useState<number>(Number(minValue));
-
-  const resetCount = () => setCount(Number(minValue) || 0); 
-
-  const increaseCount = () => {
-    const maxNum = Number(maxValue) || 0; 
-    if (count < maxNum) {
-      setCount(count + 1);
-    }
-  };
+  const increment = () => dispatch(increaseCount())
+  const reset = () => dispatch(resetCount())
 
   const isMaxCount = count === Number(maxValue);
   const isMinCount = count === (Number(minValue) || 0);
@@ -43,12 +38,12 @@ export const Enumerator = () => {
       <div className="btn-wrapper">
         <Button
           title={"increase"}
-          onClickHandler={increaseCount}
+          onClickHandler={increment}
           disabled={isMaxCount || isIncorrectValue || !valuesSet}
         />
         <Button
           title={"reset"}
-          onClickHandler={resetCount}
+          onClickHandler={reset}
           disabled={isMinCount || isIncorrectValue || !valuesSet}
         />
       </div>

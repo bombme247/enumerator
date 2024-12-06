@@ -5,6 +5,7 @@ interface ValuesState {
   maxValue: string;
   isIncorrectValue: boolean;
   valuesSet: boolean;
+  count: number;
 }
 
 const initialState: ValuesState = {
@@ -12,6 +13,7 @@ const initialState: ValuesState = {
   maxValue: localStorage.getItem('storedMaxValue') || '0',
   isIncorrectValue: false,
   valuesSet: false,
+  count: Number(localStorage.getItem('storedMinValue')) || 0,
 };
 
 const valuesSlice = createSlice({
@@ -30,9 +32,17 @@ const valuesSlice = createSlice({
     setValuesSet: (state, action: PayloadAction<boolean>) => {
       state.valuesSet = action.payload;
     },
+    increaseCount: (state) => {
+      if (state.count < Number(state.maxValue)) {
+        state.count += 1
+      } 
+    },
+    resetCount: (state) => {
+      state.count = Number(state.minValue) || 0
+    }
 
   },
 });
 
-export const { setMinValue, setMaxValue, setIsIncorrectValue, setValuesSet,  } = valuesSlice.actions;
+export const { setMinValue, setMaxValue, setIsIncorrectValue, setValuesSet, increaseCount, resetCount } = valuesSlice.actions;
 export default valuesSlice.reducer;
