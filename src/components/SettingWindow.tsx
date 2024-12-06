@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { ChangeEvent } from "react";
 import { Button } from "./Button";
 import { Input } from "./Input";
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,12 +14,14 @@ export const SettingWindow = () => {
   )
 
   const minChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    const newMinValue = event.target.value
+    let newMinValue = event.target.value.trim()
+    newMinValue = newMinValue.replace(/^0+(?=\d)/, '')
     dispatch(setMinValue(newMinValue))
     validateValues(newMinValue, maxValue)
   }
   const maxChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    const newMaxValue = event.target.value
+    let newMaxValue = event.target.value.trim()
+    newMaxValue = newMaxValue.replace(/^0+(?=\d)/, '')
     dispatch(setMaxValue(newMaxValue))
     validateValues(minValue, newMaxValue)
   }

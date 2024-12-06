@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "./Button";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 
 type EnumeratorPropsType = {
@@ -13,7 +13,6 @@ type EnumeratorPropsType = {
 
 export const Enumerator = () => {
 
-  const dispatch = useDispatch();
   const { minValue, maxValue, isIncorrectValue, valuesSet } = useSelector((state: RootState) => state.values);
 
   const [count, setCount] = useState<number>(Number(minValue));

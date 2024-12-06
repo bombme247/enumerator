@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import './App.css';
 import { Enumerator } from './components/Enumerator';
 import { SettingWindow } from './components/SettingWindow';
